@@ -4,9 +4,9 @@ import numpy as np
 from tensorflow import keras
 import os
 from tensorflow.keras.utils import to_categorical
-from Generator import build_generator
-from Discriminator import build_discriminator
-from Encoder import build_encoder
+from networks.Generator import build_generator
+from networks.Discriminator import build_discriminator
+from networks.Encoder import build_encoder
 from model import GAN
 from utils import l2_norm
 from utils import Checkpoint_callback
