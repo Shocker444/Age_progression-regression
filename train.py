@@ -12,7 +12,7 @@ from utils import l2_norm
 from utils import Checkpoint_callback
 from utils import Generate
 
-image_path = r'C:\Users\SHOCKER\tensorflow_projects\basic_machine_learning\Generative_model_stuff\Age Progression\UTKFace'
+image_path = r'C:\Users\SHOCKER\tensorflow_projects\basic_machine_learning\Generative_model_stuff\Age_progression-regression\UTKFace'
 
 # age_group = 0-10, 11-20, 21-30, 31-40, 41-50, 51-60, 61+
 g1, image1 = [], []
