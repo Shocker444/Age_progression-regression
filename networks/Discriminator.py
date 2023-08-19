@@ -1,7 +1,8 @@
 from keras import backend as K
 from tensorflow.keras import layers
 from tensorflow import keras
-from networks.blocks import DiscResnetBlock
+import tensorflow_addons as tfa
+
 
 
 def expand_label_input(x):
@@ -31,8 +32,9 @@ def build_discriminator(num_classes=7):
 
 
     # 1st Convolution Block
-    x = DiscResnetBlock(16, 5)(image_input)
-    #x = tfa.layers.SpectralNormalization(layers.Conv2D(16, kernel_size = 5, strides = 2, padding = 'same'))(image_input) # (batch_size, 64, 64, 16)
+    #x = DiscResnetBlock(16, 5)(image_input)
+    x = tfa.layers.SpectralNormalization(layers.Conv2D(16, kernel_size = 5, strides = 2, padding = 'same'))(image_input) # (batch_size, 64, 64, 16)
+    #x = Residual(16, 5, add_bn=False)(x)
     x = layers.BatchNormalization()(x)
     x = layers.ReLU()(x)
 
@@ -40,22 +42,25 @@ def build_discriminator(num_classes=7):
     x = layers.Concatenate()([x, li]) # (batch_size, 16, 16, n+16)
 
    # 2nd Convolution Block
-    x = DiscResnetBlock(32, 5)(x)
-    #x = tfa.layers.SpectralNormalization(layers.Conv2D(32, kernel_size = 5, strides=(2, 2), padding='same'))(x) # (batch_size, 32, 32, 32)
+    #x = DiscResnetBlock(32, 5)(x)
+    x = tfa.layers.SpectralNormalization(layers.Conv2D(32, kernel_size = 5, strides=(2, 2), padding='same'))(x) # (batch_size, 32, 32, 32)
+    #x = Residual(32, 5)(x)
     x = layers.BatchNormalization()(x)
     x = layers.ReLU()(x)
     x = layers.Dropout(0.3)(x)
 
     # 3rd Convolution Block
-    x = DiscResnetBlock(64, 5)(x)
-    #x = tfa.layers.SpectralNormalization(layers.Conv2D(64, kernel_size = 5, strides=(2, 2), padding='same'))(x) # (batch_size, 16, 16, 64)
+    #x = DiscResnetBlock(64, 5)(x)
+    x = tfa.layers.SpectralNormalization(layers.Conv2D(64, kernel_size = 5, strides=(2, 2), padding='same'))(x) # (batch_size, 16, 16, 64)
+    #x = Residual(64, 5)(x)
     x = layers.BatchNormalization()(x)
     x = layers.ReLU()(x)
     x = layers.Dropout(0.3)(x)
 
     # 4th Convolution Block
-    x = DiscResnetBlock(128, 5)(x)
-    #x = tfa.layers.SpectralNormalization(layers.Conv2D(128, kernel_size = 5, strides=(2, 2), padding='same'))(x) # (batch_size, 8, 8, 128)
+    #x = DiscResnetBlock(128, 5)(x)
+    x = tfa.layers.SpectralNormalization(layers.Conv2D(128, kernel_size = 5, strides=(2, 2), padding='same'))(x) # (batch_size, 8, 8, 128)
+    #x = Residual(128, 5)(x)
     x = layers.BatchNormalization()(x)
     x = layers.ReLU()(x)
     x = layers.Dropout(0.3)(x)

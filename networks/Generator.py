@@ -1,6 +1,6 @@
 from tensorflow.keras import layers
 from tensorflow import keras
-from networks.blocks import GenResnetBlock
+
 
 
 def build_generator(latent_dim, num_classes=7):
@@ -26,27 +26,31 @@ def build_generator(latent_dim, num_classes=7):
     x = layers.Dropout(0.2)(x)
 
     # 1st Deconvolution Block
-    x = GenResnetBlock(512, 5)(x)
-    #x = layers.Conv2DTranspose(filters = 512, kernel_size = 5, padding = 'same', strides=2)(x) # (batch_size, 16, 16, 512)
+    #x = GenResnetBlock(512, 5)(x)
+    x = layers.Conv2DTranspose(filters = 512, kernel_size = 5, padding = 'same', strides=2)(x) # (batch_size, 16, 16, 512)
+    #x = Residual(512, 5)(x)
     #x = layers.BatchNormalization(momentum = 0.8)(x)
     x = layers.ReLU()(x)
 
     # 2nd Deconvolution Block
-    x = GenResnetBlock(256, 5)(x)
-    #x = layers.Conv2DTranspose(filters = 256, kernel_size = 5, padding = 'same', strides=2)(x) # (batch_size, 32, 32, 256)
+    #x = GenResnetBlock(256, 5)(x)
+    x = layers.Conv2DTranspose(filters = 256, kernel_size = 5, padding = 'same', strides=2)(x) # (batch_size, 32, 32, 256)
+    #x = Residual(256, 5)(x)
     #x = layers.BatchNormalization(momentum = 0.8)(x)
     x = layers.ReLU()(x)
     x = layers.Dropout(0.5)(x)
 
     # 3rd Deconvolution Block
-    x = GenResnetBlock(128, 5)(x)
-    #x = layers.Conv2DTranspose(filters = 128, kernel_size = 5, padding = 'same', strides=2)(x) # (batch_size, 32, 32, 128)
+    #x = GenResnetBlock(128, 5)(x)
+    x = layers.Conv2DTranspose(filters = 128, kernel_size = 5, padding = 'same', strides=2)(x) # (batch_size, 32, 32, 128)
+    #x = Residual(128, 5)(x)
     #x = layers.BatchNormalization(momentum = 0.8)(x)
     x = layers.ReLU()(x)
 
     # 4th Deconvolution Block
-    x = GenResnetBlock(64, 5)(x)
-    #x = layers.Conv2DTranspose(filters = 64, kernel_size = 5, padding = 'same', strides=2)(x) # (batch_size, 64, 64, 64)
+    #x = GenResnetBlock(64, 5)(x)
+    x = layers.Conv2DTranspose(filters = 64, kernel_size = 5, padding = 'same', strides=2)(x) # (batch_size, 64, 64, 64)
+    #x = Residual(64, 5)(x)
     #x = layers.BatchNormalization(momentum = 0.8)(x)
     x = layers.ReLU()(x)
 
